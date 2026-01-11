@@ -59,7 +59,7 @@ export const BankMain = ({ user,setUser,allUser }: Prop) => {
                  
             </div>
             <motion.div initial={{scale:0}} animate={{scale:1}} className="w-4/4 md-w-2/4 order-1 md-order-2 flex justify-center ">
-              <img className="w-3/4 md-w-3/4 pt-5 mb-4" src="img\card.png" alt="" />
+              <img className="w-3/4 md-w-3/4 pt-5 mb-4" src="img\debitCar.png" alt="" />
             </motion.div>
 
           </div>
