@@ -16,7 +16,7 @@ export const Transfer = ( {allMovement,setAllMovements,user,users }:MovementsPro
         amount: 0,
         type: '',
         toAccId: 0,
-        date:''
+        date:0
     })
     const [userInfo, setUserInfo] = useState<User>({
         accNumber: 0,
@@ -82,7 +82,7 @@ export const Transfer = ( {allMovement,setAllMovements,user,users }:MovementsPro
                 toAccId: Number(deposit.toAccId),
                 type: 'Transfer',
                 amount: Number(-deposit.amount),
-                date: new Date(Date.now()).toLocaleDateString("es-DO")
+                date: Date.now()
             }
             setAllMovements(prev => ([...prev, updatedTransfer]))
         } else {
@@ -98,34 +98,34 @@ export const Transfer = ( {allMovement,setAllMovements,user,users }:MovementsPro
     
 
   return (
-      <section className='mt-5'>
+      <section className=' text-[#61a2b4]'>
           <motion.div  initial={{scale:0}} animate={{scale:1}}>
               <form onSubmit={(e)=>addTransfer(e)}
                   className="rounded-xl grid grid-cols-1 md:grid-cols-3 gap-2 bg-white shadow  p-4 max-w-lg">
                <div className="flex flex-col items">
-               <label className='text-center text-yellow-500 text-xs'>Acc</label>
+               <label className='text-center  text-xs'>Acc</label>
                 <input
                   type="number"
                   name="toAccId"
                   value={deposit.toAccId}
                   onChange={handleTransfer}
-                  className="border text-sm  p-1 rounded-xl text-yellow-500  "
+                  className="border text-sm  p-1 rounded-xl "
                    />
                </div>
 
               <div className="flex flex-col">
-               <label className='text-center text-xs text-yellow-500 '>Amount</label>
+               <label className='text-center text-xs  '>Amount</label>
                  <input
                    type="number"
                    name="amount"
                    value={deposit.amount}
                    onChange={handleTransfer}
-                   className="border text-sm p-1 rounded-xl text-yellow-500  "
+                   className="border text-sm p-1 rounded-xl   "
                       />
                       <label className='text-[10px] ' htmlFor="">{userInfo.userName}</label>
                   </div>
                   <div className='grid grid-cols-1'>
-                      <button type='submit' className='border border-green-500 py-2 rounded-xl  text-green-500'>Transfer</button>
+                      <button type='submit' className='border border-[#61a2b4] py-2 rounded-xl  '>Transfer</button>
                   </div>
 </form> 
           </motion.div>

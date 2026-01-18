@@ -14,6 +14,6 @@ export interface Movements{
     toAccId: number,
     amount: number,
     type: string,
-    date:string
+    date:number
     
 }

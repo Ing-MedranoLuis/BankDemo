@@ -1,10 +1,11 @@
 import type { Movements, User } from "@/data/bankingData"
-import { Deposit } from "./Deposit"
+
 import { useMovements } from "@/hooks/useMovements"
 import { useEffect, type Dispatch, type SetStateAction } from "react"
 import { motion } from "motion/react"
 
-import { Transfer } from "./Transfer"
+import { ActionsButtons } from "./ActionsButtons"
+
 
 export interface Prop{
   user: User,
@@ -15,8 +16,8 @@ export const BankMain = ({ user,setUser,allUser }: Prop) => {
   const { allMovements, setAllMovements } = useMovements();
   
   useEffect(() => {
-    getAccBalance(),
-      console.log(allUser)
+    getAccBalance()
+     
    
   }, [allMovements])
   
@@ -44,18 +45,18 @@ export const BankMain = ({ user,setUser,allUser }: Prop) => {
       <div className="p-5 max-w-90  bg-white w-full md-h-full h-auto rounded-4xl shadow-2xl max-h-3/4 m-auto ">
               <div className="flex flex-col items-center md-flex md-items-normal  ">
                 <div className=" flex justify-center w-2/4 w-full">
-                  <h1 className="text-yellow-500  text-center text-2xl md-text-3xl text-shadow-sm">Welcome Sr: {user.userName.toUpperCase()}</h1>
+                  <h1 className="text-[#61a2b4]  text-center text-2xl md-text-3xl text-shadow-sm">Welcome Sr: {user.userName.toUpperCase()}</h1>
                 </div>
                 <motion.div initial={{scale:0}} animate={{scale:1}} className="w-2/4 full flex justify-center ">
-                    <h1 className="  font-balance text-5xl md-text-8xl text-green-300 text-shadow-lg "> ${ user.balance}.00</h1>
+                    <h1 className="   text-4xl md-text-8xl text-[#61a2b4] text-shadow-lg "> ${ user.balance}.00</h1>
                 </motion.div>
               </div>
              
         <section>
           <div className="flex flex-col md-flex-row ">
-            <div className="w-2/4 w-full order-2">
-                <Deposit user={user} AllDeposits={allMovements} setAllDeposits={setAllMovements} />
-                 <Transfer users={allUser} user={user} allMovement={allMovements} setAllMovements={setAllMovements}  />
+              <div className="w-2/4 w-full order-2">
+              <ActionsButtons user={user} setAllDeposits={setAllMovements}AllDeposits={allMovements} allUser={allUser}/>
+                
                  
             </div>
             <motion.div initial={{scale:0}} animate={{scale:1}} className="w-4/4 md-w-2/4 order-1 md-order-2 flex justify-center ">
@@ -68,7 +69,7 @@ export const BankMain = ({ user,setUser,allUser }: Prop) => {
 
           </div>
                <div className=" rounded p-4 max-w-4/4 m-auto" >
-                 <h1 className="text-center py-2 animate-bounce text-yellow-500 text-shadow-sm">Movements</h1>
+                 <h1 className="text-center py-2 animate-bounce text-[#61a2b4]  text-shadow-sm">Movements</h1>
                  {
                   (allMovements.length!=0)
                    ? allMovements.map(e => (
@@ -78,9 +79,13 @@ export const BankMain = ({ user,setUser,allUser }: Prop) => {
                        {allUser.filter(u => u.accNumber == e.toAccId)
                          .map((username) => (
                            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className={`${e.type=='Deposit'?'border-green-100':'border-red-100'} flex border border-gray-100 rounded-xl p-2 my-2 flex-row justify-between`}>
-                        <h1 key={username.accNumber}>To: {username.userName}</h1>
+                        <h1 key={username.accNumber}>To:<span className="text-[#61a2b4]"> {username.userName}</span> </h1>
                         <h1 key={username.accNumber} className={`${e.type=="Deposit"?'text-green-500':'text-red-500'}`}>${ e.amount}</h1>
-                          <h1 key={username.accNumber} className="text-gray-500">{e.date}</h1>
+                          <h1 key={username.accNumber} className="text-gray-500">{new Date(e.date).toLocaleTimeString("es-ES", {
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: true
+})}</h1>
                           <h1 key={username.accNumber} className={`${e.type=='Transfer'?"text-red-500":'text-green-500'} text-center`}>{e.type}</h1>
                       </motion.div>
                     ))}
